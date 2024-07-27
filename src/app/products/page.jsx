@@ -1,4 +1,4 @@
-'use client';
+"use client";
 import {
   useReactTable,
   getCoreRowModel,
@@ -6,18 +6,18 @@ import {
   getPaginationRowModel,
   getSortedRowModel,
   getFilteredRowModel,
-} from '@tanstack/react-table';
-import CreateButton from '../components/CreateButton';
-import { useProduct } from '../hooks/useProduct';
-import { CiEdit } from 'react-icons/ci';
-import { GrPrevious, GrNext } from 'react-icons/gr';
-import { FaArrowDown, FaArrowUp } from 'react-icons/fa';
-import { MdDeleteOutline } from 'react-icons/md';
-import Link from 'next/link';
-import { useState } from 'react';
-import SearchInput from '../components/SearchInput';
-import PaginationButton from '../components/PaginationButton';
-import Swal from 'sweetalert2';
+} from "@tanstack/react-table";
+import CreateButton from "../components/CreateButton";
+import { useProduct } from "../hooks/useProduct";
+import { CiEdit } from "react-icons/ci";
+import { GrPrevious, GrNext } from "react-icons/gr";
+import { FaArrowDown, FaArrowUp } from "react-icons/fa";
+import { MdDeleteOutline } from "react-icons/md";
+import Link from "next/link";
+import { useState } from "react";
+import SearchInput from "../components/SearchInput";
+import PaginationButton from "../components/PaginationButton";
+import Swal from "sweetalert2";
 
 const Products = () => {
   const { useGetAllProducts, deleteProductMutation } = useProduct();
@@ -25,20 +25,20 @@ const Products = () => {
 
   const alertConfirm = (id) => {
     Swal.fire({
-      title: 'Are you sure?',
+      title: "Are you sure?",
       text: "You won't be able to revert this!",
-      icon: 'warning',
+      icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: '#d33',
-      cancelButtonColor: '#3085d6',
-      confirmButtonText: 'Yes, delete it!',
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
         deleteProduct(id);
         Swal.fire({
-          title: 'Deleted!',
-          text: 'Your file has been deleted.',
-          icon: 'success',
+          title: "Deleted!",
+          text: "Your file has been deleted.",
+          icon: "success",
         });
       }
     });
@@ -57,8 +57,8 @@ const Products = () => {
 
   const columns = [
     {
-      accessorKey: 'image_url',
-      header: 'Imagen',
+      accessorKey: "image_url",
+      header: "Imagen",
       cell: (info) => (
         <img
           src={`${process.env.NEXT_PUBLIC_API_BASE_URL}${info.row.original.image_url}`}
@@ -68,37 +68,37 @@ const Products = () => {
       ),
     },
     {
-      accessorKey: 'name',
-      header: 'Nombre',
+      accessorKey: "name",
+      header: "Nombre",
       cell: (info) => info.getValue(),
     },
     {
-      accessorKey: 'description',
-      header: 'Description',
+      accessorKey: "description",
+      header: "Description",
       cell: (info) => info.getValue(),
     },
     {
-      accessorKey: 'cantidad',
-      header: 'Cantidad',
+      accessorKey: "cantidad",
+      header: "Cantidad",
       cell: (info) => info.getValue(),
     },
     {
-      accessorKey: 'fecha',
-      header: 'Fecha',
+      accessorKey: "fecha",
+      header: "Fecha",
       cell: (info) => info.getValue(),
     },
     {
-      accessorKey: 'precio',
-      header: 'Precio',
+      accessorKey: "precio",
+      header: "Precio",
       cell: (info) => info.getValue(),
     },
     {
-      header: 'Accion',
+      header: "Accion",
     },
   ];
 
   const [sorting, setSorting] = useState([]);
-  const [filtering, setFiltering] = useState('');
+  const [filtering, setFiltering] = useState("");
   const table = useReactTable({
     data: products || [],
     columns,
@@ -118,7 +118,7 @@ const Products = () => {
     <p>Cargando productos...</p>
   ) : (
     <div>
-      <div className="flex justify-between ">
+      <div className="flex justify-between">
         <div>
           <h2 className="text-2xl text-[#1a4545]">Lista de Productos</h2>
           <SearchInput
@@ -127,7 +127,7 @@ const Products = () => {
             onChange={(e) => setFiltering(e.target.value)}
           />
         </div>
-        <CreateButton href={'products/create'} />
+        <CreateButton href={"products/create"} />
       </div>
 
       <table className="w-full mt-5 text-center">
@@ -144,7 +144,7 @@ const Products = () => {
                       <button className="">
                         {flexRender(
                           header.column.columnDef.header,
-                          header.getContext(),
+                          header.getContext()
                         )}
                         {
                           { asc: <FaArrowUp />, desc: <FaArrowDown /> }[

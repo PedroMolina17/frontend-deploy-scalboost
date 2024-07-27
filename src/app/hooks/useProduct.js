@@ -1,18 +1,18 @@
-'use client';
+"use client";
 
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import {
   getAllProducts,
   getProductById,
   deleteProduct,
   updateProduct,
   createProduct,
-} from '../service/product';
-import { useRouter } from 'next/navigation';
-import { format } from 'date-fns';
+} from "../service/product";
+import { useRouter } from "next/navigation";
+import { format } from "date-fns";
 const formatDate = (isoString) => {
-  return format(new Date(isoString), 'MMMM d, yyyy');
+  return format(new Date(isoString), "MMMM d, yyyy");
 };
 
 export const useProduct = () => {
@@ -22,28 +22,28 @@ export const useProduct = () => {
   const addProductMutation = useMutation({
     mutationFn: async (data) => createProduct(data),
     onSuccess: () => {
-      queryClient.invalidateQueries('products');
-      router.push('/products');
+      queryClient.invalidateQueries("products");
+      router.push("/products");
     },
   });
   const updateProductMutation = useMutation({
     mutationFn: async ({ id, data }) => updateProduct(id, data),
     onSuccess: () => {
-      queryClient.invalidateQueries('products');
-      router.push('/products');
+      queryClient.invalidateQueries("products");
+      router.push("/products");
     },
   });
 
   const deleteProductMutation = useMutation({
     mutationFn: async (data) => deleteProduct(data),
     onSuccess: () => {
-      queryClient.invalidateQueries('products');
+      queryClient.invalidateQueries("products");
     },
   });
 
   const useGetAllProducts = () =>
     useQuery({
-      queryKey: ['products'],
+      queryKey: ["products"],
       queryFn: getAllProducts,
       select: (products) => {
         const formattedProducts = products
@@ -66,7 +66,7 @@ export const useProduct = () => {
 
   const useGetProductById = (id) =>
     useQuery({
-      queryKey: ['products'],
+      queryKey: ["products"],
       queryFn: () => getProductById(id),
     });
 
